@@ -1,0 +1,18 @@
+{
+  "release": "2026-09-source-derived",
+  "files": [
+    ".gitattributes",
+    ".github/workflows/test.yml",
+    ".gitignore",
+    "LICENSE",
+    "README.md",
+    "demo.py",
+    "docs/engineering-cases.md",
+    "docs/source-provenance.md",
+    "public-files.json",
+    "tests/test_pipeline.py",
+    "translation_core/__init__.py",
+    "translation_core/corpus.py",
+    "translation_core/governance.py"
+  ]
+}
