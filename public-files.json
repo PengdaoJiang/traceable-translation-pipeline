@@ -1,5 +1,5 @@
 {
-  "release": "2026-09-source-derived",
+  "release": "2026-10-source-derived",
   "files": [
     ".gitattributes",
     ".github/workflows/test.yml",
@@ -8,9 +8,16 @@
     "README.md",
     "demo.py",
     "docs/engineering-cases.md",
+    "docs/finite-workers.md",
     "docs/source-provenance.md",
     "public-files.json",
+    "runtime/__init__.py",
+    "runtime/cli.py",
+    "runtime/finite_worker.py",
+    "runtime/source_packets.py",
+    "tests/test_finite_worker.py",
     "tests/test_pipeline.py",
+    "tests/test_task_identity.py",
     "translation_core/__init__.py",
     "translation_core/corpus.py",
     "translation_core/governance.py"

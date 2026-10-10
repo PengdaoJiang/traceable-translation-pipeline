@@ -4,3 +4,5 @@ __pycache__/
 demo-output/
 *.sqlite3
 .env*
+outputs/
+work/

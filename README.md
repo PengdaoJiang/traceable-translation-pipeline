@@ -36,3 +36,7 @@ python -B demo.py --out demo-output
 ## License
 
 [MIT](LICENSE)，适用于代码、文档及原创测试样例。合成收据中的角色、日期和批准字段仅是测试数据，不表示真实任务执行或文学审定。依赖系统 SQLite/Python 的许可证保持不变。
+
+## Finite execution and anchored reading
+
+[Source-derived runtime](docs/finite-workers.md) adds bounded workers, durable execution receipts, cancellation and immutable source packets to the corpus/governance implementation.
