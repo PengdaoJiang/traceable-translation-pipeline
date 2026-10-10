@@ -38,13 +38,18 @@ TASK_RECEIPT_HEADER = (
     "notes",
 )
 TASK_RECEIPT_ROLES = {"producer", "counter-reviewer", "adjudicator"}
-CANONICAL_CODEX_TASK_ID_PATTERN = re.compile(r"/root(?:/[a-z0-9_]+)*")
+CANONICAL_CODEX_TASK_ID_PATTERN = re.compile(
+    r"(?:/root(?:/[a-z0-9_]+)*|"
+    r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})"
+)
 
 
 def is_canonical_codex_task_id(value: str) -> bool:
-    """Return whether *value* has the repository's canonical Codex task-path form."""
+    """Check exact task-path or lowercase UUID syntax, not identity authenticity."""
 
     return bool(CANONICAL_CODEX_TASK_ID_PATTERN.fullmatch(value))
+
+
 TASK_RECEIPT_CONTEXT_POLICIES = {
     "full-context",
     "isolated-context",
@@ -174,7 +179,8 @@ def validate_task_receipts(
         by_id[receipt_id] = row
         if not is_canonical_codex_task_id(row["task_id"]):
             errors.append(
-                f"{prefix}: task_id must be a canonical /root Codex task path"
+                f"{prefix}: task_id must be a canonical /root Codex task path "
+                "or lowercase UUID"
             )
         if row["role"] not in TASK_RECEIPT_ROLES:
             errors.append(f"{prefix}: invalid role {row['role']!r}")

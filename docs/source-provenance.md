@@ -8,4 +8,4 @@ The broader project also contains nomenclature research, milestone production, a
 
 A private source mapping records original file hashes, selected definitions and released-file hashes. Public Git history starts with the actual release; no older dates or fictional contributors are inserted.
 
-The source receipt format uses canonical task-path strings. Checking their syntax and distinctness does not authenticate a task execution. Real users must retain external execution evidence. The public fixture clearly uses fabricated test IDs and synthetic records, not historical approvals.
+The source receipt format accepts canonical task paths and lowercase UUIDs, matching the current source project's real task-identity formats. Checking syntax and distinctness does not authenticate a task execution. Real users must retain external execution evidence. Public fixtures use fabricated test identities and synthetic records, not historical approvals.
