@@ -1,5 +1,5 @@
 {
-  "release": "2026-10-source-derived",
+  "release": "2026-11-source-derived",
   "files": [
     ".gitattributes",
     ".github/workflows/test.yml",
@@ -10,6 +10,7 @@
     "docs/engineering-cases.md",
     "docs/finite-workers.md",
     "docs/source-provenance.md",
+    "docs/versioned-runtime.md",
     "public-files.json",
     "runtime/__init__.py",
     "runtime/cli.py",
@@ -20,6 +21,30 @@
     "tests/test_task_identity.py",
     "translation_core/__init__.py",
     "translation_core/corpus.py",
-    "translation_core/governance.py"
+    "translation_core/governance.py",
+    "verify_versioned_runtime.py",
+    "versioned_runtime/BUNDLE.json",
+    "versioned_runtime/PLATFORM_API.md",
+    "versioned_runtime/core/durable_proofs.py",
+    "versioned_runtime/core/merkle_map.py",
+    "versioned_runtime/core/native/adapter_receipts.py",
+    "versioned_runtime/core/native/capacity_gate.py",
+    "versioned_runtime/core/native/kernel_base.py",
+    "versioned_runtime/core/native/kernel_streaming.py",
+    "versioned_runtime/core/native/pack_io.py",
+    "versioned_runtime/core/native/source_adapter.py",
+    "versioned_runtime/core/native/source_decode.py",
+    "versioned_runtime/core/native/synthetic_fixtures.py",
+    "versioned_runtime/core/native/synthetic_sources.py",
+    "versioned_runtime/core/native/target_size.py",
+    "versioned_runtime/core/native_pending.py",
+    "versioned_runtime/derive_expected_roots.py",
+    "versioned_runtime/host_checkpoint.py",
+    "versioned_runtime/platform_api.py",
+    "versioned_runtime/test_core_platform_boundary.py",
+    "versioned_runtime/test_host_checkpoint.py",
+    "versioned_runtime/test_hot_gate.py",
+    "versioned_runtime/test_platform_api.py",
+    "versioned_runtime/test_query_cache_policy.py"
   ]
 }

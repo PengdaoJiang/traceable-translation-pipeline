@@ -2,6 +2,8 @@
 
 长篇翻译工程中的**原文准备、稳定对齐、修订与审阅记录工具链**。核心代码提取自实际中文文学翻译工作区，处理重复章号、合并题头、原文修订和下游资料失效等真实问题。
 
+当前还包含[版本化运行内核](docs/versioned-runtime.md)：用内容寻址对象、事务日志、比较后交换和可验证检查点，保存长任务的精确进度；跨进程恢复后按稳定 ID 有界读取，普通查询不持续膨胀缓存。生产、复审和裁定的证据保持独立。
+
 ## 从原文到可追溯产物
 
 ```text
@@ -40,3 +42,14 @@ python -B demo.py --out demo-output
 ## Finite execution and anchored reading
 
 [Source-derived runtime](docs/finite-workers.md) adds bounded workers, durable execution receipts, cancellation and immutable source packets to the corpus/governance implementation.
+
+## Durable versioned runtime
+
+The November implementation is retained in [versioned_runtime/](versioned_runtime/), including its source pins and synthetic recovery tests. See the [architecture and reproduction guide](docs/versioned-runtime.md).
+
+```sh
+# Standard library + Git; full durability suite on a capable POSIX filesystem.
+python -B verify_versioned_runtime.py
+# Capability observation only, also usable on Windows.
+python -B verify_versioned_runtime.py --probe-only
+```
