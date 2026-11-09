@@ -1,4 +1,4 @@
-* text eol=lf
+* text=auto eol=lf
 # Frozen runtime modules and bundle pins use their exact source bytes.
 versioned_runtime/** -text
 .github/workflows/* text eol=lf
