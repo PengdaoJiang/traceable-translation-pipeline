@@ -1,11 +1,14 @@
-# Versioned State and Traceable Text Workflows
+# Agent Decision Experiments and Versioned Workflows
 
-Storage, recovery and review provenance for long-running text work. The implementation comes from a long-form literary translation project and keeps content originals, editorial decisions and derived runtime state distinct.
+Decision research, review continuity and durable state for long-running text work. Extracted from a long-form translation project, the implementation studies how agents acquire evidence, select actions and decide when to stop, while retaining content originals and version-bound judgments.
+
+Start with the [decision experiments](docs/decision-experiments.md): finite information-state planning, complete versus partitioned assessment, and unresolved-objection continuity. Run `python -B -m decision_lab.demo` for an original synthetic example using the actual extracted kernels.
 
 ## Main components
 
 | Layer | Mechanism | Start here |
 | --- | --- | --- |
+| Decision research | Conditional policy search, separate pre-state replay, evidence fusion and unresolved-objection continuity | [Decision experiments](docs/decision-experiments.md) |
 | Durable runtime | Content-addressed objects, transaction journals, compare-and-swap, verifiable checkpoints and bounded queries | [Versioned runtime](docs/versioned-runtime.md) |
 | Corpus and revision | Stable units, exact source hashes, constrained patches, dependency checks and rebuildable SQLite search | `translation_core/corpus.py` |
 | Review lineage | Bound tasks, upstream versions and distinct production/review/adjudication evidence | `translation_core/governance.py` |
@@ -20,6 +23,7 @@ Python 3.10+ and SQLite with FTS5 trigram support:
 ```sh
 python -B -m unittest discover -s tests -v
 python -B demo.py --out demo-output
+python -B -m decision_lab.demo
 ```
 
 The demo uses original synthetic text with repeated chapter numbers, merged headings and exact patches. Inspect `build/case.json`, `paragraphs.jsonl` and `corpus.sqlite3`. Display chapter numbers may repeat while stable unit identities remain unique.

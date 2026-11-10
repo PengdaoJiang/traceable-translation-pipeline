@@ -1,5 +1,7 @@
 # Preserved implementation, explicit release boundary
 
+`decision_lab/planning.py` and `decision_lab/fusion.py` are complete pure-Python modules from the source project's decision-model and assessment-fusion research. Their implementation is preserved without algorithm changes. The retained regression suites change only imports and a short fictional fixture, replaced by original sensor text. `decision_lab/demo.py` is a new original synthetic entry point. The private extraction record retains matching source/release hashes. No novel passage, full translation, private experiment transcript or credential is included. See [decision experiments](decision-experiments.md) for the model assumptions and integration boundary.
+
 `translation_core/corpus.py` contains the original definitions needed for baseline validation, patches, segmentation, structural signatures, review scopes and SQLite search. Definitions and their top-level dependency closure were selected from the existing pipeline with Python AST boundaries; function bodies were not rewritten into a demonstration implementation. The module header and workspace-root binding are portability scaffolding.
 
 `translation_core/governance.py` retains the original editorial receipt validator. The public entry point, original short test text, test cases and CI are new release support. Their purpose is to run the original implementation without the private full-book corpus or its staging directories.

@@ -16,6 +16,7 @@ jobs:
           python-version: '3.11'
       - run: python -B -m unittest discover -s tests -v
       - run: python -B demo.py --out demo-output
+      - run: python -B -m decision_lab.demo
       - name: Observe storage and process capabilities
         run: python -B verify_versioned_runtime.py --probe-only
       - name: Verify versioned state and recovery
