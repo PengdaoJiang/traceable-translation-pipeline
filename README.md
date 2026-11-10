@@ -1,55 +1,45 @@
-# Traceable Translation Pipeline
+# Versioned State and Traceable Text Workflows
 
-长篇翻译工程中的**原文准备、稳定对齐、修订与审阅记录工具链**。核心代码提取自实际中文文学翻译工作区，处理重复章号、合并题头、原文修订和下游资料失效等真实问题。
+Storage, recovery and review provenance for long-running text work. The implementation comes from a long-form literary translation project and keeps content originals, editorial decisions and derived runtime state distinct.
 
-当前还包含[版本化运行内核](docs/versioned-runtime.md)：用内容寻址对象、事务日志、比较后交换和可验证检查点，保存长任务的精确进度；跨进程恢复后按稳定 ID 有界读取，普通查询不持续膨胀缓存。生产、复审和裁定的证据保持独立。
+## Main components
 
-## 从原文到可追溯产物
+| Layer | Mechanism | Start here |
+| --- | --- | --- |
+| Durable runtime | Content-addressed objects, transaction journals, compare-and-swap, verifiable checkpoints and bounded queries | [Versioned runtime](docs/versioned-runtime.md) |
+| Corpus and revision | Stable units, exact source hashes, constrained patches, dependency checks and rebuildable SQLite search | `translation_core/corpus.py` |
+| Review lineage | Bound tasks, upstream versions and distinct production/review/adjudication evidence | `translation_core/governance.py` |
+| Finite execution | Bounded workers, cancellation, execution receipts and immutable reading packets | [Execution guide](docs/finite-workers.md) |
 
-```text
-冻结底本 → 精确补丁 → 稳定单元/段落 → 可重建检索
-                         ↓
-                 生产 → 独立反审 → 裁定记录
-```
+A local revision should preserve still-valid work without silently inheriting judgments whose source or dependencies changed. Source documents and accepted editorial evidence remain authoritative; restoring a runtime database does not itself install an editorial revision.
 
-Python 3.10+，标准库与支持 FTS5 trigram 的 SQLite：
+## Reproduce
+
+Python 3.10+ and SQLite with FTS5 trigram support:
 
 ```sh
 python -B -m unittest discover -s tests -v
 python -B demo.py --out demo-output
 ```
 
-查看 `demo-output/build/case.json`、`paragraphs.jsonl`、`zh-critical.txt` 和 `corpus.sqlite3`。样例包含重复章号、范围题头和精确错字补丁：显示章号可以重复，稳定 ID 仍然唯一，底本字节保持不变。
+The demo uses original synthetic text with repeated chapter numbers, merged headings and exact patches. Inspect `build/case.json`, `paragraphs.jsonl` and `corpus.sqlite3`. Display chapter numbers may repeat while stable unit identities remain unique.
 
-## 关键代码
+The versioned runtime also requires Git. Its full durability suite runs on a capable POSIX filesystem:
 
-- [corpus.py](translation_core/corpus.py)：从原流水线保留函数及其依赖，包含结构解析、稳定 ID、原文哈希、补丁约束、覆盖核查、原文/修订文并存及 SQLite 检索。
-- [governance.py](translation_core/governance.py)：原有审阅记录验证模块，校验任务标识、文件哈希、上下游链接、时序、状态与生产/反审/裁定角色。
-- [demo.py](demo.py)：公开适配入口，生成原创测试文本、独立结构清单及明确标记的合成收据，运行上述真实实现。
+```sh
+python -B verify_versioned_runtime.py
+# Capability observation, including on Windows:
+python -B verify_versioned_runtime.py --probe-only
+```
 
-开发过程使用 Codex 辅助实现和迭代。代码验证资料的完整性和依赖关系，文学质量仍需要实际阅读和判断。
+The [runtime guide](docs/versioned-runtime.md) explains cold admission, selected access, recovery and the source integration's scope. Full production adoption and native Windows execution remain separate from the bounded integration checks represented here.
 
-## 工程案例与来源
+## Source and review boundaries
 
-[为什么章号不能做主键、为什么修订不能改底本、为什么审阅必须锁定上游版本](docs/engineering-cases.md)。
+[Engineering cases](docs/engineering-cases.md) explain stable keys, immutable originals and version-bound review. [Source provenance](docs/source-provenance.md) distinguishes retained implementation from public adapters.
 
-[提取范围与来源](docs/source-provenance.md) 区分保留实现和公开适配。这是原文准备与审阅基础设施，不是全书译文发行版，也不声明原项目所有翻译阶段已经完成。原小说、整书译文和研究资料不随源码公开。
+The code checks identity, dependency and structural consistency. Literary judgments require actual review. Original novels, full translations and private research records are outside this distribution; synthetic receipts are test data rather than historical approvals.
 
 ## License
 
-[MIT](LICENSE)，适用于代码、文档及原创测试样例。合成收据中的角色、日期和批准字段仅是测试数据，不表示真实任务执行或文学审定。依赖系统 SQLite/Python 的许可证保持不变。
-
-## Finite execution and anchored reading
-
-[Source-derived runtime](docs/finite-workers.md) adds bounded workers, durable execution receipts, cancellation and immutable source packets to the corpus/governance implementation.
-
-## Durable versioned runtime
-
-The November implementation is retained in [versioned_runtime/](versioned_runtime/), including its source pins and synthetic recovery tests. See the [architecture and reproduction guide](docs/versioned-runtime.md).
-
-```sh
-# Standard library + Git; full durability suite on a capable POSIX filesystem.
-python -B verify_versioned_runtime.py
-# Capability observation only, also usable on Windows.
-python -B verify_versioned_runtime.py --probe-only
-```
+[MIT](LICENSE) covers repository code, documentation and original fixtures. Python, SQLite and Git retain their own terms.
