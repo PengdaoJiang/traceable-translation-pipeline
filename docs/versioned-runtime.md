@@ -57,6 +57,27 @@ bundled provider; full execution fails explicitly there. A successful Linux
 test does not certify every filesystem, power-loss survival or uninterrupted
 service. Process groups and cooperating locks are not a hostile-user sandbox.
 
+## Source authority and the derived runtime
+
+The source workflow keeps domain originals and accepted editorial evidence in
+Git. The incremental runtime is a selected, derived execution representation;
+copying or restoring its database does not itself install an editorial revision.
+This separation addresses a recurring failure mode: a local revision should not
+force every worker to reload entire historical carriers or repeat unrelated
+accepted judgments.
+
+Cold admission and local queries serve different purposes. A bounded successful
+query establishes the selected access under its authenticated state; it does not
+replace a full storage audit or prove that every literary obligation is closed.
+Exact source, dependency and adjudication bindings still determine which accepted
+results can be retained after a revision.
+
+The November source integration had bounded real revision/recovery checks, while
+full production adoption and native Windows support remained separate work. The
+public checkout exposes the generic storage and recovery implementation with
+synthetic tests. It does not present earlier record-pagination experiments or
+Git-transport smoke tests as a fully integrated current editorial system.
+
 ## Source and publication boundary
 
 This is an extraction of the November runtime, not a reimplementation for the
